@@ -1,0 +1,24 @@
+# Official references and upstream repositories
+
+- PostgreSQL Documentation — https://www.postgresql.org/docs/current/
+- PostgreSQL source — https://github.com/postgres/postgres
+- PostGIS Documentation — https://postgis.net/documentation/
+- PostGIS canonical source — https://git.osgeo.org/gitea/postgis/postgis
+- PostGIS GitHub mirror — https://github.com/postgis/postgis
+- Docker PostGIS — https://github.com/postgis/docker-postgis
+- GDAL — https://gdal.org/ and https://github.com/OSGeo/gdal
+- PROJ — https://proj.org/ and https://github.com/OSGeo/PROJ
+- GeoPandas — https://geopandas.org/ and https://github.com/geopandas/geopandas
+- Shapely — https://shapely.readthedocs.io/ and https://github.com/shapely/shapely
+- pyproj — https://pyproj4.github.io/pyproj/ and https://github.com/pyproj4/pyproj
+- FastAPI — https://fastapi.tiangolo.com/ and https://github.com/fastapi/fastapi
+- Psycopg 3 — https://www.psycopg.org/psycopg3/ and https://github.com/psycopg/psycopg
+- MapLibre GL JS — https://maplibre.org/maplibre-gl-js/docs/ and https://github.com/maplibre/maplibre-gl-js
+- MapLibre Style Spec — https://maplibre.org/maplibre-style-spec/ and https://github.com/maplibre/maplibre-style-spec
+- OGC API - Features — https://www.ogc.org/standards/ogcapi-features/ and https://github.com/opengeospatial/ogcapi-features
+- OGC API - Common — https://www.ogc.org/standard/ogcapi-common/ and https://github.com/opengeospatial/ogcapi-common
+- GeoJSON RFC 7946 — https://www.rfc-editor.org/rfc/rfc7946
+- HTTP Semantics RFC 9110 — https://www.rfc-editor.org/rfc/rfc9110
+- STAC — https://stacspec.org/ and https://github.com/radiantearth/stac-spec
+- OpenAPI Specification — https://spec.openapis.org/oas/latest.html and https://github.com/OAI/OpenAPI-Specification
+- OWASP API Security Top 10 2023 — https://owasp.org/API-Security/editions/2023/en/0x11-t10/

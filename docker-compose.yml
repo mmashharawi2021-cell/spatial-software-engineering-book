@@ -1,0 +1,29 @@
+services:
+  db:
+    image: postgis/postgis:18-3.6
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-geosmart}
+      POSTGRES_USER: ${POSTGRES_USER:-geosmart}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-change-me}
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-geosmart} -d ${POSTGRES_DB:-geosmart}"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+  api:
+    build: ./api
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER:-geosmart}:${POSTGRES_PASSWORD:-change-me}@db:5432/${POSTGRES_DB:-geosmart}
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:5173,http://127.0.0.1:5173}
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  pgdata:
