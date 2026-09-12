@@ -53,14 +53,13 @@ jobs:
           API_PID=$!
           trap 'kill $API_PID || true' EXIT
           for i in $(seq 1 30); do
-            if python - <<'PY'
-import urllib.request
-try:
-    urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=1)
-except Exception:
-    raise SystemExit(1)
-PY
-            then break; fi
+            if curl -fsS http://127.0.0.1:8000/health >/dev/null; then
+              break
+            fi
+            if [ "$i" -eq 30 ]; then
+              cat uvicorn.log
+              exit 1
+            fi
             sleep 1
           done
           python tests/api_integration.py
