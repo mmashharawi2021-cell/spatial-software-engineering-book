@@ -1,6 +1,6 @@
 # Technical release checklist
 
-Legend: `[x]` verified, `[ ]` intentionally deferred until the frozen `book-v1.0.0` release is created.
+Legend: `[x]` verified, `[ ]` intentionally deferred until the frozen `book-v1.0.0` release/tag exists.
 
 ## Code
 - [x] Clean checkout succeeds through GitHub Actions fresh hosted runners.
@@ -11,6 +11,7 @@ Legend: `[x]` verified, `[ ]` intentionally deferred until the frozen `book-v1.0
 - [x] `web/package-lock.json` is committed and `npm ci && npm run build` passes.
 - [x] All 60 manuscript code blocks have a canonical status/path in `docs/CODE_BLOCK_MANIFEST.md`.
 - [x] All 60 mapped files are checked automatically by `tests/verify_code_block_manifest.py`.
+- [x] Runnable SQL examples are executed against declared PostgreSQL/PostGIS test contexts.
 - [x] Dart manuscript snippet is explicitly Illustrative and parser/formatter-verified in CI.
 
 ## Database
@@ -36,7 +37,7 @@ Legend: `[x]` verified, `[ ]` intentionally deferred until the frozen `book-v1.0
 - [x] A committed npm lockfile is used through `npm ci`.
 - [x] Map load is verified in Chromium with Playwright.
 - [x] Visible-feature loading is verified with a deterministic mocked GeoJSON response.
-- [x] Refresh cancellation behavior is verified in browser E2E tests.
+- [x] Refresh cancellation behavior is verified by asserting cancellation of the prior request.
 - [x] Production API error-state behavior is verified in browser E2E tests.
 
 ## Skills / Agents / MCP-ready layer
@@ -58,21 +59,31 @@ Legend: `[x]` verified, `[ ]` intentionally deferred until the frozen `book-v1.0
 - [ ] Generate and verify the QR code against the frozen release/tag.
 
 ## Licensing
-- [x] Original companion code license is present.
-- [x] Dataset license is present.
+- [x] Original companion code license is present (`LICENSE-CODE`, MIT).
+- [x] Synthetic dataset license is present (`DATA_LICENSE.md`, CC0 1.0 unless stated otherwise).
 - [x] Third-party notices file is present.
 - [x] No vendor repository is copied wholesale into the current reference repository.
-- [ ] Perform the final third-party notice/version re-audit immediately before creating `book-v1.0.0`.
+- [x] Final third-party notice/version re-audit completed on 2026-09-12.
+- [x] Direct runtime/build/test dependencies are listed with upstream-declared license families in `THIRD_PARTY_LICENSES.md`.
+- [x] Referenced standards are separated from software dependencies and no certification/conformance is implied.
+
+## Branch protection / merge gate
+- [x] Default branch is protected by repository ruleset `Protect main`.
+- [x] Pull requests are required before updates to `main`.
+- [x] Review conversations must be resolved before merge.
+- [x] Force pushes and deletions are blocked.
+- [x] Required checks are `web`, `python-and-postgis`, and `dart-code-block`.
+- [x] Required checks must be current with the target branch before merge.
 
 ## Verified CI gate
 The expanded pre-release gate verifies, on a fresh GitHub-hosted runner:
 
 1. Python compilation, unit tests, Skills, Agents, MCP-ready registry, and all 60 code-block mappings.
 2. GeoJSON validation and ETL.
-3. PostgreSQL/PostGIS startup, migrations, seed, and spatial smoke tests.
+3. PostgreSQL/PostGIS startup, migrations, seed, runnable manuscript SQL, and spatial smoke tests.
 4. Live FastAPI integration tests against that PostGIS service, including negative BBOX and response-leak checks.
 5. Reproducible web install through `npm ci`, TypeScript/Vite production build, Chromium install, and Playwright E2E tests.
 6. Dart parser/formatter verification for the illustrative Flutter/Dart manuscript block.
 
 ## Release gate
-The engineering/code reproducibility blockers are now closed. The remaining unchecked items are **release-freeze tasks** that cannot be completed until the final repository state and final publication artifact are frozen. Do not create `book-v1.0.0` until the final third-party notice audit is complete and the final manuscript/PDF has been re-rendered and visually reviewed.
+All engineering, reproducibility, licensing-audit, and branch-protection blockers are closed. The only remaining unchecked items are **freeze tasks** that require the immutable `book-v1.0.0` tag/release to exist. After this finalization PR is merged and its CI is green, create `book-v1.0.0` from that exact `main` commit, record the commit SHA in the production manuscript, generate the release QR, and re-render/preflight the publication PDF.
