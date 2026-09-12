@@ -39,20 +39,31 @@ test('surfaces API errors to the reader', async ({ page }) => {
 
 test('cancels the previous request when a new refresh starts', async ({ page }) => {
   let requestCount = 0;
+  let failedAssetRequests = 0;
+
+  page.on('requestfailed', request => {
+    if (request.url().startsWith('http://localhost:8000/assets')) {
+      failedAssetRequests += 1;
+    }
+  });
+
   await page.route('http://localhost:8000/assets**', async route => {
     requestCount += 1;
     if (requestCount === 1) {
-      await new Promise(resolve => setTimeout(resolve, 500));
+      await new Promise(resolve => setTimeout(resolve, 1500));
     }
     await route.fulfill({ status: 200, contentType: 'application/geo+json', body: JSON.stringify(oneFeature) }).catch(() => undefined);
   });
 
   await page.goto('/');
   await page.waitForFunction(() => typeof (window as any).__loadVisibleAssets === 'function');
+  await expect.poll(() => requestCount).toBeGreaterThanOrEqual(1);
+
   await page.evaluate(() => {
     void (window as any).__loadVisibleAssets();
-    void (window as any).__loadVisibleAssets();
   });
+
   await expect.poll(() => requestCount).toBeGreaterThanOrEqual(2);
+  await expect.poll(() => failedAssetRequests).toBeGreaterThanOrEqual(1);
   await expect(page.locator('#status')).toHaveAttribute('data-state', 'ready');
 });
