@@ -1,0 +1,13 @@
+{
+  "schema_version": "0.1",
+  "transport": "adapter-defined",
+  "provider_agnostic": true,
+  "tools": [
+    {"name": "validate-geojson", "description": "Validate a GeoJSON FeatureCollection."},
+    {"name": "transform-crs", "description": "Transform GeoJSON between declared CRSs."},
+    {"name": "spatial-query", "description": "Build a safe structured spatial query plan; raw SQL is forbidden."},
+    {"name": "summarize-field-data", "description": "Summarize field records."},
+    {"name": "detect-data-quality-issues", "description": "Detect missing fields and duplicate IDs."},
+    {"name": "generate-map-style", "description": "Generate a minimal MapLibre style."}
+  ]
+}
