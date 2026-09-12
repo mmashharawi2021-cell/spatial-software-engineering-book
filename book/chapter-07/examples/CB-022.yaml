@@ -1,0 +1,4 @@
+# ADR-003: Source of truth
+Context: Web, mobile, and jobs modify the same assets.
+Decision: PostGIS is the authoritative store; cached GeoJSON is derived only.
+Consequences: writes go through API; cache may be rebuilt at any time.

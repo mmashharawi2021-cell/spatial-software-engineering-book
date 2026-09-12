@@ -1,0 +1,8 @@
+{
+  "field": "review_status",
+  "type": "enum",
+  "allowed": ["pending", "approved", "rejected"],
+  "nullable": false,
+  "owner": "review_workflow",
+  "audited": true
+}

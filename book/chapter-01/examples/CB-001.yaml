@@ -1,0 +1,11 @@
+# product-brief.yaml
+product: GeoSmart Assets
+source_of_truth: PostGIS
+primary_users:
+  - field_collector
+  - reviewer
+  - manager
+quality_targets:
+  max_form_time_minutes: 4
+  rejected_records_percent: "< 5"
+  dashboard_freshness_minutes: "< 10"

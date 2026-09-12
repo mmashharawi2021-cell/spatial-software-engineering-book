@@ -1,0 +1,7 @@
+{
+  "error": {
+    "code": "CONFLICT_VERSION",
+    "message": "The feature was modified by another client.",
+    "request_id": "req_01..."
+  }
+}

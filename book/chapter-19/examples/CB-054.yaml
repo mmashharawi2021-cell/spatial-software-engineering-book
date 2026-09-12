@@ -1,0 +1,7 @@
+steps:
+  - docker compose up -d db
+  - python -m app.migrate
+  - python -m app.seed
+  - pytest -q
+  - npm test
+  - python scripts/check_openapi.py
