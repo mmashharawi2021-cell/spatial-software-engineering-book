@@ -1,6 +1,7 @@
 from agents import FieldDataAgent, GeoAIAssistant, MapAssistantAgent, SpatialDataAgent, SpatialQueryAgent
 from mcp.tool_registry import invoke_tool
 from skills import build_spatial_query_plan, detect_data_quality_issues, validate_geojson
+import pytest
 
 
 def sample_geojson():
@@ -63,3 +64,18 @@ def test_geoai_accepts_structured_planner_adapter():
     result = assistant.plan({"data": {}})
     assert result["mode"] == "llm-assisted"
     assert result["action"]["skill"] == "validate-geojson"
+
+
+def test_tool_registry_rejects_unknown_tool():
+    with pytest.raises(KeyError):
+        invoke_tool("drop-database", {})
+
+
+def test_tool_registry_requires_dictionary_arguments():
+    with pytest.raises(TypeError):
+        invoke_tool("summarize-field-data", [])  # type: ignore[arg-type]
+
+
+def test_spatial_query_rejects_excessive_limit():
+    with pytest.raises((TypeError, ValueError)):
+        build_spatial_query_plan(collection="buildings", bbox=[34, 31, 35, 32], limit=1000000)
