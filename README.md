@@ -13,21 +13,37 @@
 
 ---
 
-# GeoSmart Assets — Companion Package v0.2
+# GeoSmart Assets — Companion Package v0.3
 
 الحزمة المرجعية المصاحبة لكتاب «هندسة البرمجيات المكانية: من البيانات الجغرافية إلى التطبيقات الذكية».
 
 > البيانات التدريبية اصطناعية ولا تمثل سجلات أو معالم حقيقية. بعض الإحداثيات تقع ضمن فضاء جغرافي حقيقي لأغراض شرح الخرائط فقط.
 
-## ما تغير في v0.2
+## Skills + Agents + MCP-ready
+أضيفت طبقة ذكية منظمة فوق النظام الجغرافي الأساسي دون ربط المشروع بمزود LLM واحد:
+
+- `skills/`: مهارات مكانية deterministic وقابلة للاختبار بشكل مستقل.
+- `agents/`: وكلاء ينسقون المهارات ولا يتجاوزون طبقة الصلاحيات أو قاعدة البيانات.
+- `mcp/`: Tool registry وmanifest مستقلان عن مزود النموذج وجاهزان للتغليف لاحقًا داخل MCP server.
+- `docs/agent-architecture.md`: معمارية الفصل بين GIS logic وagent orchestration وLLM adapters.
+
+### المهارات الحالية
+`validate-geojson`, `transform-crs`, `spatial-query`, `summarize-field-data`, `detect-data-quality-issues`, `generate-map-style`.
+
+### الوكلاء الحاليون
+`SpatialDataAgent`, `SpatialQueryAgent`, `FieldDataAgent`, `MapAssistantAgent`, `GeoAIAssistant`.
+
+**قاعدة أمنية:** `SpatialQueryAgent` لا يقبل SQL حر؛ ينتج خطة استعلام structured ومحدودة وقابلة للـparameterization.
+
+## ما تغير في v0.3
+- إضافة Skills وAgents وMCP-ready registry.
+- إبقاء GeoAI provider-agnostic مع planner adapter اختياري.
+- توسيع الاختبارات والـCI لتشمل الطبقة الذكية.
 - تحديث بيئة PostgreSQL/PostGIS المرجعية.
 - إضافة health checks وAPI container.
 - إصلاح bbox ليستخدم `ST_Intersects` بعد prefilter مكاني.
 - إضافة CORS صريح وready check وpagination بسيطة.
 - تقوية التحقق من GeoJSON وETL.
-- تحويل اختبار المجال إلى اختبار للكود الحقيقي بدل تعريف الدالة داخل الاختبار.
-- إضافة CI لـPostGIS/Python/Web.
-- إضافة المستودعات والمراجع الرسمية ومصفوفة الإصدارات وقائمة إصدار تقنية.
 - فصل ترخيص الكود عن ترخيص Dataset.
 
 ## تشغيل كامل
@@ -37,7 +53,7 @@
 4. للويب: `cd web && npm install && npm run dev`.
 
 ## التحقق
-- Python: `python -m compileall -q api python tests && pytest -q`
+- Python + Skills + Agents + MCP: `python -m compileall -q api python tests skills agents mcp && pytest -q`
 - ETL: `python python/validate_features.py && python python/etl.py`
 - Web: `cd web && npm install && npm run build`
 - Database: راجع `database/tests/001_smoke.sql` وGitHub Actions.
