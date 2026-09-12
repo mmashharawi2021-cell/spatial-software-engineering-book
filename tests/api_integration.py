@@ -7,6 +7,7 @@ import urllib.parse
 import urllib.request
 
 BASE = os.getenv("API_BASE", "http://127.0.0.1:8000")
+SENSITIVE_MARKERS = ("postgresql://", "password", "secret", "token", "DATABASE_URL")
 
 
 def get(path: str, expected: int = 200):
@@ -18,6 +19,9 @@ def get(path: str, expected: int = 200):
         status = exc.code
         body = exc.read().decode("utf-8")
     assert status == expected, (path, status, body)
+    lowered = body.lower()
+    for marker in SENSITIVE_MARKERS:
+        assert marker.lower() not in lowered, f"Sensitive marker leaked in response: {marker}"
     return json.loads(body)
 
 
@@ -29,6 +33,10 @@ assert ready == {"status": "ready"}
 
 invalid = get("/assets?bbox=bad", expected=400)
 assert invalid["detail"]["code"] == "invalid_bbox"
+
+reversed_bbox = urllib.parse.quote("35.22,31.91,35.20,31.89")
+reversed_result = get(f"/assets?bbox={reversed_bbox}", expected=400)
+assert reversed_result["detail"]["code"] == "invalid_bbox"
 
 bbox = urllib.parse.quote("35.20,31.89,35.22,31.91")
 collection = get(f"/assets?bbox={bbox}&limit=10")
@@ -44,4 +52,4 @@ approved = get(f"/assets?bbox={bbox}&status=approved")
 assert len(approved["features"]) == 1
 assert approved["features"][0]["properties"]["review_status"] == "approved"
 
-print("API integration checks passed")
+print("API integration and negative-response checks passed")
