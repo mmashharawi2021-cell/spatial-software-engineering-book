@@ -5,6 +5,8 @@
 
 **Author & Maintainer:** Eng. Mohanad Anwar Khalil Al-Mashharawi — Full-Stack GIS Developer
 
+**Repository:** https://github.com/mmashharawi2021-cell/spatial-software-engineering-book
+
 **Reference implementation:** `GeoSmart Assets` — an educational spatial intelligence platform that connects field data, validation, PostGIS, API services, Web GIS, offline workflows, dashboards, automation, testing, security, and optional GeoAI.
 
 > Book manuscript copyright is separate from the companion code license. Synthetic training data has its own license. Third-party software and standards retain their original ownership and licenses.
