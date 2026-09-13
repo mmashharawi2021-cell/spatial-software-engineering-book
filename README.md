@@ -57,8 +57,9 @@
 ## تشغيل كامل
 1. انسخ `.env.example` إلى `.env` وغيّر كلمة المرور عند الحاجة.
 2. شغّل: `docker compose up --build`.
-3. تحقق من API: `http://localhost:8000/health` و`/ready` و`/docs`.
-4. للويب: `cd web && npm install && npm run dev`.
+3. طبّق SQL بالترتيب: `database/migrations/001_init.sql` ثم `database/migrations/002_geometry_nonempty.sql` ثم `database/seed/001_seed.sql` على قاعدة التدريب الجديدة.
+4. تحقق من API: `http://localhost:8000/health` و`/ready` و`/docs`.
+5. للويب: `cd web && npm install && npm run dev`.
 
 ## التحقق
 - Python + Skills + Agents + MCP: `python -m compileall -q api python tests skills agents mcp && pytest -q`
@@ -71,3 +72,7 @@
 
 ## ملاحظة امتثال
 الـAPI في هذه الحزمة **تعليمي ومتأثر بممارسات OGC API - Features** لكنه لا يُوصف بأنه OGC-compliant ما لم تنفذ نقاط conformance المطلوبة ويُشغّل اختبار امتثال مناسب.
+
+## Committee candidate v0.6
+
+See `docs/GEOMETRY_AND_CONCURRENCY.md`, `docs/ILLUSTRATIVE_EXCERPTS.md` and `docs/REFERENCES_IEEE.md`. No `book-v1.0.0` tag or release is created by this revision.

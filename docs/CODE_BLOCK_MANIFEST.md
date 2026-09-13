@@ -17,7 +17,7 @@ Each manuscript block has exactly one release status:
 | CB-007 | 2 | python | Runnable | `book/chapter-02/examples/CB-007.py` | Python + imports/data shown in chapter when applicable | Python AST/compile syntax check; chapter context for execution |
 | CB-008 | 3 | json | Runnable | `book/chapter-03/examples/CB-008.json` | None | JSON parser |
 | CB-009 | 3 | python | Runnable | `book/chapter-03/examples/CB-009.py` | Python + imports/data shown in chapter when applicable | Python AST/compile syntax check; chapter context for execution |
-| CB-010 | 4 | python | Runnable | `book/chapter-04/examples/CB-010.py` | Python + imports/data shown in chapter when applicable | Python AST/compile syntax check; chapter context for execution |
+| CB-010 | 4 | python | Runnable | `book/chapter-04/examples/CB-010.py` | Python + imports/data shown in chapter when applicable | Construction, boundary, invalid and immutability tests in tests/test_coordinate.py |
 | CB-011 | 4 | python | Runnable | `book/chapter-04/examples/CB-011.py` | Python + imports/data shown in chapter when applicable | Python AST/compile syntax check; chapter context for execution |
 | CB-012 | 4 | python | Runnable | `book/chapter-04/examples/CB-012.py` | Python + imports/data shown in chapter when applicable | Python AST/compile syntax check; chapter context for execution |
 | CB-013 | 5 | python | Runnable | `book/chapter-05/examples/CB-013.py` | Python + imports/data shown in chapter when applicable | Python AST/compile syntax check; chapter context for execution |

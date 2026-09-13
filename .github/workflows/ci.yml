@@ -45,6 +45,7 @@ jobs:
       - name: Database migration and smoke tests
         run: |
           psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f database/migrations/001_init.sql
+          psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f database/migrations/002_geometry_nonempty.sql
           psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f database/seed/001_seed.sql
           psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f database/tests/001_smoke.sql
       - name: API integration tests
